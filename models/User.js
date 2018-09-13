@@ -17,9 +17,14 @@ const UserSchema = new Schema({
   avatar: {
     type: String
   },
+  FriendRequestedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
+  Friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
   date: {
     type: Date,
     default: Date.now
+  },
+  path: {
+    type: String
   }
 });
 
