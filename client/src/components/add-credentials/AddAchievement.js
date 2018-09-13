@@ -139,7 +139,8 @@ class AddAchievement extends Component {
                 <input
                   type="submit"
                   value="Submit"
-                  className="btn btn-info btn-block mt-4"
+                  className="btn text-white btn-block mt-4"
+                  style={{ backgroundColor: "#3B5998" }}
                 />
               </form>
             </div>

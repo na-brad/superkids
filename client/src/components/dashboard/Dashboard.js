@@ -114,9 +114,10 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+              Welcome{" "}
+              <Link to={`/profile/${profile.handle}`}>{user.name}!</Link>
             </p>
-            {JSON.stringify(user)}
+            {/* {JSON.stringify(user)} */}
             <ProfileActions />
             <Achievement achievement={profile.achievement} />
             <br />
@@ -128,6 +129,7 @@ class Dashboard extends Component {
               ref="emailInput"
             />
             <button onClick={this.handleAddFriend}>Add Friend</button>
+            <hr />
             <h3>Pending Friend Requests:</h3>
             {this.state.friendRequests.length > 0
               ? this.state.friendRequests.map((request, index) => (
@@ -165,9 +167,13 @@ class Dashboard extends Component {
       } else {
         dashboardContent = (
           <div>
-            <p className="lead text-muted">Welcome {user.name}</p>
+            <p className="lead text-muted">Welcome {user.name}!</p>
             <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
+            <Link
+              style={{ backgroundColor: "#3B5998" }}
+              to="/create-profile"
+              className="btn btn-lg text-white"
+            >
               Create Profile
             </Link>
           </div>

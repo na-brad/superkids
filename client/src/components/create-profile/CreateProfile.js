@@ -151,15 +151,21 @@ class CreateProfile extends Component {
     }
 
     const options = [
-      { label: "* Select Professional Status", value: 0 },
-      { label: "Developer", value: "Developer" },
-      { label: "Junior Developer", value: "Junior Developer" },
-      { label: "Senior Developer", value: "Senior Developer" },
-      { label: "Manager", value: "Manager" },
-      { label: "Student or Learning", value: "Student or Learning" },
-      { label: "Instructor or Teacher", value: "Instructor or Teacher" },
-      { label: "Intern", value: "Intern" },
-      { label: "Other", value: "Other" }
+      { label: "* Select Career Interest", value: 0 },
+      { label: "Computers and Technology", value: "Computers and Technology" },
+      { label: "Healthcare", value: "Healthcare" },
+      { label: "Education", value: "Education" },
+      { label: "Arts/Communication", value: "Arts/Communication" },
+      {
+        label: "Trades and Transportation",
+        value: "Trades and Transportation"
+      },
+      {
+        label: "Management,Business,Finance",
+        value: "Management,Business,Finance"
+      },
+      { label: "Architecture/Engineering", value: "Architecture/Engineering" },
+      { label: "Law and Law Enforcement", value: "Law and Law Enforcement" }
     ];
 
     return (
@@ -179,7 +185,7 @@ class CreateProfile extends Component {
                   value={this.state.handle}
                   onChange={this.onChange}
                   error={errors.handle}
-                  info="A unique handle for your profile URL. Your full name, company name, nickname"
+                  info="A unique handle for your profile URL. It can be anything!"
                 />
                 <SelectListGroup
                   placeholder="Status"
@@ -188,51 +194,51 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   options={options}
                   error={errors.status}
-                  info="Give us an idea of where you are at in your career"
+                  info="Give us an idea of your dream career"
                 />
-                <TextFieldGroup
+                {/* <TextFieldGroup
                   placeholder="Company"
                   name="company"
                   value={this.state.company}
                   onChange={this.onChange}
                   error={errors.company}
                   info="Could be your own company or one you work for"
-                />
-                <TextFieldGroup
+                /> */}
+                {/* <TextFieldGroup
                   placeholder="Website"
                   name="website"
                   value={this.state.website}
                   onChange={this.onChange}
                   error={errors.website}
                   info="Could be your own website or a company one"
-                />
+                /> */}
                 <TextFieldGroup
                   placeholder="Location"
                   name="location"
                   value={this.state.location}
                   onChange={this.onChange}
                   error={errors.location}
-                  info="City or city & state suggested (eg. Boston, MA)"
+                  info="Where you're from!"
                 />
                 <TextFieldGroup
-                  placeholder="* Skills"
+                  placeholder="* Talents"
                   name="skills"
                   value={this.state.skills}
                   onChange={this.onChange}
                   error={errors.skills}
                   info="Please use comma separated values (eg.
-                    HTML,CSS,JavaScript,PHP"
+                    Golf,Computers,Chess,Piano)"
                 />
-                <TextFieldGroup
+                {/* <TextFieldGroup
                   placeholder="Github Username"
                   name="githubusername"
                   value={this.state.githubusername}
                   onChange={this.onChange}
                   error={errors.githubusername}
                   info="If you want your latest repos and a Github link, include your username"
-                />
+                /> */}
                 <TextAreaFieldGroup
-                  placeholder="Short Bio"
+                  placeholder="About Me"
                   name="bio"
                   value={this.state.bio}
                   onChange={this.onChange}
