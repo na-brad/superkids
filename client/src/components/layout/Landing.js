@@ -16,20 +16,21 @@ class Landing extends Component {
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Super Kids</h1>
-                <h2>Empowering The Next </h2>
-                {/* <p className="lead">
-                  {" "}
-                  Create a profile and connect with other talented kids!
-                </p>
-                <hr /> */}
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
-                  Sign Up
+              <div className="col-lg-12 text-center">
+              <div className="row">
+              <div className="col-lg-6 text-center">
+                <h1 className="display-3 mb-4 name">Super <br /> Kids</h1>
+                </div>
+                <div className="col-lg-6 text-center">
+                <h2 className="subName">Empowering The Next</h2>
+                <Link to="/register" className="btn btn-lg btn-info mr-2 landBtn">
+                  Join Now
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
+                <Link to="/login" className="btn btn-lg btn-light landBtn">
                   Login
                 </Link>
+                </div>
+              </div>
               </div>
             </div>
           </div>
