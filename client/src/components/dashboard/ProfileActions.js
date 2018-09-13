@@ -4,11 +4,20 @@ import { Link } from "react-router-dom";
 const ProfileActions = () => {
   return (
     <div className="btn-group mb-4" role="group">
-      <Link to="/edit-profile" className="btn btn-light">
-        <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
+      <Link
+        style={{ backgroundColor: "#3B5998" }}
+        to="/edit-profile"
+        className="text-white btn mr-1"
+      >
+        <i className="fas fa-user text-white mr-1" /> Edit Profile
       </Link>
-      <Link to="/add-achievement" className="btn btn-light">
-        <i className="fab fa-black-tie text-info mr-1" />
+      <br />
+      <Link
+        style={{ backgroundColor: "#3B5998" }}
+        to="/add-achievement"
+        className="btn text-white"
+      >
+        <i className="fas fa-trophy text-white mr-1" />
         Add Achievement
       </Link>
       {/* <Link to="/add-education" className="btn btn-light">

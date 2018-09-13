@@ -39,9 +39,9 @@ class Achievement extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>Company</th>
+              <th>Organization</th>
               <th>Title</th>
-              <th>Year</th>
+              <th>Date</th>
               <th />
             </tr>
             {achievement}

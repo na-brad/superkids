@@ -17,20 +17,26 @@ class Landing extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center">
-              <div className="row">
-              <div className="col-lg-6 text-center">
-                <h1 className="display-3 mb-4 name">Super <br /> Kids</h1>
+                <div className="row">
+                  <div className="col-lg-6 text-center">
+                    <h1 className="display-3 mb-4 name">
+                      Super <br /> Kids
+                    </h1>
+                  </div>
+                  <div className="col-lg-6 text-center">
+                    <h2 className="subName">Empowering The Next</h2>
+                    <Link
+                      to="/register"
+                      style={{ backgroundColor: "#3B5998" }}
+                      className="btn btn-lg text-white mr-2 landBtn"
+                    >
+                      Join Now
+                    </Link>
+                    <Link to="/login" className="btn btn-lg btn-light landBtn">
+                      Login
+                    </Link>
+                  </div>
                 </div>
-                <div className="col-lg-6 text-center">
-                <h2 className="subName">Empowering The Next</h2>
-                <Link to="/register" className="btn btn-lg btn-info mr-2 landBtn">
-                  Join Now
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light landBtn">
-                  Login
-                </Link>
-                </div>
-              </div>
               </div>
             </div>
           </div>

@@ -3,14 +3,14 @@ img {
 }
 
 .name {
-  font-family: 'Monoton', cursive;
+  font-family: "Monoton", cursive;
   margin-top: 75px;
   font-size: 125px;
   text-shadow: 2px 2px #ff0000;
 }
 
 .subName {
-  font-family: 'Russo One', sans-serif;
+  font-family: "Russo One", sans-serif;
   margin-top: 150px;
   text-shadow: 2px 2px #ff0000;
 }
@@ -57,10 +57,13 @@ img {
 
 .navbar {
   height: 65px;
-  background-color: rgba(4, 10, 29, 0.872)
-  
+  /* background-color: rgba(4, 10, 29, 0.872), */
+  background-color: #3b5998;
 }
-
+.nav-link,
+.navbar-brand {
+  color: white;
+}
 .logo {
   margin-left: -150px;
 }
