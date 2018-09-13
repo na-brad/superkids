@@ -2,6 +2,23 @@ img {
   width: 100%;
 }
 
+.name {
+  font-family: 'Monoton', cursive;
+  margin-top: 75px;
+  font-size: 125px;
+  text-shadow: 2px 2px #ff0000;
+}
+
+.subName {
+  font-family: 'Russo One', sans-serif;
+  margin-top: 150px;
+  text-shadow: 2px 2px #ff0000;
+}
+
+.landBtn {
+  margin-top: 35px;
+}
+
 .landing {
   position: relative;
   background: url("./img/landing.jpeg") no-repeat;
@@ -36,4 +53,18 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+.navbar {
+  height: 65px;
+  background-color: rgba(4, 10, 29, 0.872)
+  
+}
+
+.logo {
+  margin-left: -150px;
+}
+
+.nav-log {
+  margin-right: -150px;
 }
