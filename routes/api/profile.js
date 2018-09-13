@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 
 const validateProfileInput = require("../../validation/profile");
-const validateExperienceInput = require("../../validation/experience");
+const validateAchievementInput = require("../../validation/achievement");
 const validateEducationInput = require("../../validation/education");
 
 const Profile = require("../../models/Profile");
@@ -134,10 +134,10 @@ router.post(
 );
 
 router.post(
-  "/experience",
+  "/achievement",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateExperienceInput(req.body);
+    const { errors, isValid } = validateAchievementInput(req.body);
 
     if (!isValid) {
       return res.status(400).json(errors);
@@ -154,7 +154,7 @@ router.post(
         description: req.body.description
       };
 
-      profile.experience.unshift(newExp);
+      profile.achievement.unshift(newExp);
 
       profile.save().then(profile => res.json(profile));
     });
@@ -190,16 +190,16 @@ router.post(
 );
 
 router.delete(
-  "/experience/:exp_id",
+  "/achievement/:exp_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
-        const removeIndex = profile.experience
+        const removeIndex = profile.achievement
           .map(item => item.id)
           .indexOf(req.params.exp_id);
 
-        profile.experience.splice(removeIndex, 1);
+        profile.achievement.splice(removeIndex, 1);
 
         profile.save().then(profile => res.json(profile));
       })
