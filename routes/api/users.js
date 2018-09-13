@@ -5,11 +5,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const ObjectId = require("mongodb").ObjectId;
+const fs = require("fs");
 
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
@@ -102,5 +105,154 @@ router.get(
     });
   }
 );
+
+router.post("/Friends", function(req, res) {
+  const id = req.body.id;
+  User.findById(id)
+    .populate("Friends")
+    .then(Friends => res.json(Friends))
+    .catch(err => res.status(404).json(err));
+});
+
+router.post("/AddFriend", function(req, res) {
+  // 'req' is the package of two friends
+  User.findOneAndUpdate(
+    {
+      // find user to be friended, by email address
+      email: req.body.requestee
+    },
+    {
+      $push: {
+        FriendRequestedBy: req.body.requestor.id
+      }
+    } // TODO now this an object
+  )
+    // .populate('FriendRequestedBy')
+    // .then(FriendRequests => res.json(FriendRequests))
+    .then(user => {
+      if (user) {
+        // user exists, submit request to DB
+        return res.end();
+      } else {
+        // user not found, inform requestor
+        return res.status(404).json({
+          reply: "Email not found"
+        });
+      } // end else
+    }) // end then
+    .catch(err => res.status(422).json(err));
+}); //end router.post
+
+router.post("/FriendRequests", function(req, res) {
+  // ONLY shows active friend requests for the logged-in users
+  const id = req.body.id;
+  User.findById(id)
+    .populate("FriendRequestedBy")
+    .then(FriendRequests => res.json(FriendRequests))
+    .catch(err => res.status(404).json(err));
+});
+
+router.post("/AcceptFriend", function(req, res) {
+  console.log(req.body);
+  const requestorId = req.body.requestor;
+  const acceptorId = req.body.acceptor;
+  User.findOneAndUpdate(
+    { _id: ObjectId(requestorId) },
+    { $push: { Friends: acceptorId } }
+  ).catch(err => res.status(404).json(err));
+  User.findOneAndUpdate(
+    { _id: ObjectId(acceptorId) },
+    { $push: { Friends: requestorId } }
+  )
+    .populate("Friends")
+    .then(Friends => res.json(Friends))
+    // .then(user => {
+    //     if (user) { // user exists, submit request to DB
+    //         return res.end()
+    //     }
+    //     else { // user not found, inform requestor
+    //         return res.status(404).json({
+    //             reply: 'Email not found'
+    //         });
+    //     } // end else
+    // }) // end then
+    .catch(err => res.status(422).json(err));
+});
+
+router.post("/DeleteRequest", function(req, res) {
+  User.findOneAndUpdate(
+    {
+      _id: ObjectId(req.body.requestor)
+    },
+    {
+      $pull: {
+        FriendRequestedBy: req.body.acceptor
+      }
+    }
+  ).catch(err => res.status(404).json(err));
+  User.findOneAndUpdate(
+    {
+      _id: ObjectId(req.body.acceptor)
+    },
+    {
+      $pull: {
+        FriendRequestedBy: req.body.requestor
+      }
+    }
+  )
+    .populate("FriendRequestedBy")
+    .then(FriendRequests => res.json(FriendRequests))
+    .catch(err => res.status(422).json(err));
+});
+
+router.post("/DeleteFriendRequest", function(req, res) {
+  User.findOneAndUpdate(
+    {
+      _id: ObjectId(req.body.rejector)
+    },
+    {
+      $pull: {
+        FriendRequestedBy: req.body.requestor
+      }
+    }
+  )
+    .populate("FriendRequestedBy")
+    .then(FriendRequests => res.json(FriendRequests))
+    .catch(err => res.status(422).json(err));
+});
+
+router.post("/images", (req, res) => {
+  // console.log(req.body.image)
+  const image = req.body.image.split(",")[1];
+  const type = req.body.type.split("/")[1];
+  fs.writeFile(
+    "./client/public/images/" + req.body.handle + "." + type,
+    image,
+    "base64",
+    err => {
+      if (err) throw err;
+      console.log("The file has been saved!");
+    }
+  );
+  console.log("WHAAAA", req.body.user);
+  User.findOneAndUpdate(
+    { _id: req.body.user._id },
+    {
+      $set: {
+        path: "/images/" + req.body.handle + "." + type
+      }
+    }
+  );
+  Profile.findOneAndUpdate(
+    { handle: req.body.handle },
+    {
+      $set: {
+        path: "/images/" + req.body.handle + "." + type
+      }
+    }
+  )
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
 
 module.exports = router;

@@ -7,12 +7,12 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileCreds from "./ProfileCreds";
 import ProfileGithub from "./ProfileGithub";
 import Spinner from "../common/Spinner";
-import { getProfileByHandle } from "../../actions/profileActions";
+import { getProfileById } from "../../actions/profileActions";
 
 class Profile extends Component {
   componentDidMount() {
-    if (this.props.match.params.handle) {
-      this.props.getProfileByHandle(this.props.match.params.handle);
+    if (this.props.match.params.user_id) {
+      this.props.getProfileById(this.props.match.params.user_id);
     }
   }
 
@@ -65,7 +65,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  getProfileByHandle: PropTypes.func.isRequired,
+  getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -75,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle }
+  { getProfileById }
 )(Profile);

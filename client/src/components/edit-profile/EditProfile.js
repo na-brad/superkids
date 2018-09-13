@@ -8,6 +8,7 @@ import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 import isEmpty from "../../validation/is-empty";
+import axios from "axios";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class CreateProfile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
+      file: "",
+      user: null,
       errors: {}
     };
 
@@ -85,7 +88,8 @@ class CreateProfile extends Component {
         facebook: profile.facebook,
         linkedin: profile.linkedin,
         youtube: profile.youtube,
-        instagram: profile.instagram
+        instagram: profile.instagram,
+        user: profile.user
       });
     }
   }
@@ -115,6 +119,35 @@ class CreateProfile extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
+  handleUpload = () => {
+    // console.log(this.state.file)
+    // debugger;
+    var reader = new FileReader();
+    reader.onload = event => {
+      const content = reader.result;
+      console.log(content);
+      console.log("success");
+      axios
+        .post("/api/users/images", {
+          image: content,
+          handle: this.state.handle,
+          user: this.state.user,
+          type: this.state.file.type
+        })
+        .then(res => {
+          console.log(res);
+          //  this.setState({profpic: res.data.path})
+        });
+    };
+    reader.readAsDataURL(this.state.file);
+  };
+
+  handleInputChange = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+  };
 
   render() {
     const { errors, displaySocialInputs } = this.state;
@@ -277,6 +310,9 @@ class CreateProfile extends Component {
                   <span className="text-muted">Optional</span>
                 </div>
                 {socialInputs}
+                <p>Profile Picture</p>
+                <input type="file" onChange={this.handleInputChange} />
+                <button onClick={this.handleUpload}>Upload</button>
                 <input
                   type="submit"
                   value="Submit"

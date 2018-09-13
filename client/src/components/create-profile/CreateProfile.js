@@ -7,6 +7,7 @@ import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { createProfile } from "../../actions/profileActions";
+import axios from "axios";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -64,6 +65,34 @@ class CreateProfile extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
+  handleUpload = () => {
+    // console.log(this.state.file)
+    // debugger;
+    var reader = new FileReader();
+    reader.onload = event => {
+      const content = reader.result;
+      console.log(content);
+      console.log("success");
+      axios
+        .post("/api/users/images", {
+          image: content,
+          handle: this.state.handle,
+          type: this.state.file.type
+        })
+        .then(res => {
+          console.log(res);
+          //  this.setState({profpic: res.data.path})
+        });
+    };
+    reader.readAsDataURL(this.state.file);
+  };
+
+  handleInputChange = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+  };
 
   render() {
     const { errors, displaySocialInputs } = this.state;
